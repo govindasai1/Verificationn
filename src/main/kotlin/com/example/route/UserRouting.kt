@@ -1,7 +1,7 @@
 package com.example.route
 
 import com.example.models.*
-import com.example.service.UserService
+import com.example.reposotories.UserService
 import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
@@ -13,11 +13,8 @@ fun Route.userRouting(){
     route("/user"){
         post {
             val requestBody = call.receive<User>()
-            UserService.creatingUser(requestBody)
-                .apply {
-                    call.respondText(this,status = HttpStatusCode.Created)
-                }
-
+            val responce = UserService.creatingUser(requestBody)
+            call.respond(HttpStatusCode.Created,responce)
         }
     }
 
@@ -54,9 +51,9 @@ fun Route.userRouting(){
         }
 
 
-        post("/2FA/{id?}") {
-            val id = call.parameters["id"]?:return@post call.respond(status = HttpStatusCode.NotAcceptable,Message("ID CANT BE EMPTY"))
-            call.respond(status = HttpStatusCode.OK,UserService.set2Fa(id.toInt()))
+        post("/2FA") {
+            val id = call.receive<Id>()
+            call.respond(status = HttpStatusCode.OK,UserService.set2Fa(id.id))
         }
 
 

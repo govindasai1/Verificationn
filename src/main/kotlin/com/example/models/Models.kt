@@ -6,6 +6,9 @@ import kotlinx.serialization.Serializable
 data class User(val name:String,val email:String)
 
 @Serializable
+data class Id(val id:Int)
+
+@Serializable
 data class Message(val message:String)
 
 @Serializable

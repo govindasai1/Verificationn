@@ -1,4 +1,4 @@
-package com.example.service
+package com.example.reposotories
 
 import com.example.dao.UserDao
 import com.example.database.DatabaseFactory
@@ -14,10 +14,11 @@ import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.update
-var time = ""
-var time1 =""
+
 object UserService:UserDao {
-    override suspend fun creatingUser(user: User): String {
+    private lateinit var time : String
+    private lateinit var time1 : String
+    override suspend fun creatingUser(user: User): Message {
         DatabaseFactory.dbQuery {
             UserTable.insert {
                 it[name] = user.name
@@ -43,7 +44,7 @@ object UserService:UserDao {
             }
         }
 
-        return "USER CREATED SUCCESSFULLY"
+        return Message("USER CREATED SUCCESSFULLY")
     }
 
     override suspend fun mobileVerification(id: Int, mobileNumber: Long): Message {
