@@ -94,8 +94,8 @@ object UserService:UserDao {
     override suspend fun setMpin(id: Int, mpin: String): Message {
         time1 = time()
         val diffTime = timeTaken(time, time1)
-        return if(checkingPresence(id) && diffTime<0.15 ) {
-            if (intable(mpin) && mpin.length==6) {
+        return if(checkingPresence(id)  && diffTime<0.15 ) {
+            if (intable(mpin) && mpin.length==6 ) {
                 updatingTables(id, "3", "4", "addAdhar")
                 DatabaseFactory.dbQuery {
                     StageVerificationTable.update({ StageVerificationTable.id.eq(id) }) {

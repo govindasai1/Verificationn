@@ -32,7 +32,6 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation-jvm")
     implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
-    implementation("com.h2database:h2:$h2_version")
     implementation("io.ktor:ktor-server-host-common-jvm")
     implementation("io.ktor:ktor-server-status-pages-jvm")
     implementation("io.ktor:ktor-server-netty-jvm")
@@ -45,7 +44,8 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:$ktor_version")
     testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
-//    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.0")
+
 
 
 

@@ -18,6 +18,7 @@ import java.sql.Connection
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
+
 class UserServiceTest {
     private lateinit var database :Database
     private val user = User("govindasai","govindasai101@gmail.com")
@@ -42,6 +43,7 @@ class UserServiceTest {
     }
 
     @Test
+//    @Order(1)
     fun creatingUserTest() = testApplication {
         val result = UserService.creatingUser(user)
         if (result.equals(Message)) assertTrue(true)
@@ -89,5 +91,7 @@ class UserServiceTest {
         if (result.equals(Message)) assertTrue(true)
         else assertFalse(false)
     }
+
+
 
 }

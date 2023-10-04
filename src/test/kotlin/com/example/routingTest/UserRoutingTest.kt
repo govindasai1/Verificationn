@@ -1,5 +1,6 @@
 package com.example.routingTest
 
+import com.example.endPoints.*
 import com.example.models.*
 import com.example.module
 import com.example.plugins.configureRouting
@@ -13,23 +14,13 @@ import kotlin.test.assertEquals
 
 
 class UserRoutingTest {
-
-    @Test
-    fun testPost() = testApplication {
-        application {
-            module(configureRouting())
-        }
-        val client1 = createClient {
-            install(ContentNegotiation){
-                json()
-            }
-        }
-        val res =client1.post("/") {
-            setBody(User("sai","gbh@gmail.com"))
-            contentType(ContentType.Application.Json)
-        }
-        assertEquals(HttpStatusCode.Created, res.status)
-    }
+    private val user = User("govindasai","govindasai101@gmail.com")
+    private val mobileNumber = MobileNo(1,6309883522)
+    private val emailId = Email(1,"gbh@gmail.com")
+    private val mPin = Mpin(1,"124575")
+    private val adharNo = AdharNo(1,"457844775847")
+    private val panNo = PanNo(1,"PQSPS3121R")
+    private val id = Id(1)
 
     @Test
     fun testUser() = testApplication {
@@ -41,8 +32,8 @@ class UserRoutingTest {
                 json()
             }
         }
-        val res =client1.post("/user") {
-            setBody(User("sai","gbh@gmail.com"))
+        val res =client1.post(USER_PATH) {
+            setBody(user)
             contentType(ContentType.Application.Json)
         }
         assertEquals(HttpStatusCode.Created, res.status)
@@ -58,12 +49,13 @@ class UserRoutingTest {
                 json()
             }
         }
-        val res =client1.post("/verification/mobileVer") {
-            setBody(MobileNo(1,6309883522))
+        val res =client1.post(BASE_PATH + MOBILE_VERIFICATION) {
+            setBody(mobileNumber)
             contentType(ContentType.Application.Json)
         }
         assertEquals(HttpStatusCode.OK, res.status)
     }
+
 
     @Test
     fun testEmail() = testApplication {
@@ -75,12 +67,13 @@ class UserRoutingTest {
                 json()
             }
         }
-        val res =client1.post("/verification/email") {
-            setBody(Email(1,"gbh@gmail.com"))
+        val res =client1.post(BASE_PATH + EMAIL_VERIFICATION) {
+            setBody(emailId)
             contentType(ContentType.Application.Json)
         }
         assertEquals(HttpStatusCode.OK, res.status)
     }
+
 
     @Test
     fun testMpin() = testApplication {
@@ -92,15 +85,16 @@ class UserRoutingTest {
                 json()
             }
         }
-        val res =client1.post("/verification/setMPIN") {
-            setBody(Mpin(1,"124575"))
+        val res =client1.post(BASE_PATH + MPIN_VERIFICATION) {
+            setBody(mPin)
             contentType(ContentType.Application.Json)
         }
         assertEquals(HttpStatusCode.OK, res.status)
     }
 
+
     @Test
-    fun testadhar() = testApplication {
+    fun testAdhar() = testApplication {
         application {
             module(configureRouting())
         }
@@ -109,12 +103,13 @@ class UserRoutingTest {
                 json()
             }
         }
-        val res =client1.post("/verification/adhar") {
-            setBody(AdharNo(1,"457844775847"))
+        val res =client1.post(BASE_PATH + ADHAR_VERIFICATION) {
+            setBody(adharNo)
             contentType(ContentType.Application.Json)
         }
         assertEquals(HttpStatusCode.OK, res.status)
     }
+
 
     @Test
     fun testPan() = testApplication {
@@ -126,12 +121,13 @@ class UserRoutingTest {
                 json()
             }
         }
-        val res =client1.post("/verification/pan") {
-            setBody(PanNo(1,"pqaws4147e"))
+        val res =client1.post(BASE_PATH + PAN_VERIFICATION) {
+            setBody(panNo)
             contentType(ContentType.Application.Json)
         }
         assertEquals(HttpStatusCode.OK, res.status)
     }
+
 
     @Test
     fun test2FA() = testApplication {
@@ -143,8 +139,8 @@ class UserRoutingTest {
                 json()
             }
         }
-        val res =client1.post("/verification/2FA") {
-            setBody(Id(1))
+        val res =client1.post(BASE_PATH + SET2FA_VERIFICATION) {
+            setBody(id)
             contentType(ContentType.Application.Json)
         }
         assertEquals(HttpStatusCode.OK, res.status)
